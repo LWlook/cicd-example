@@ -26,4 +26,5 @@ jobs:
       - run: npm i
       - run: npm test
       - run: npm run build
-      - run: mv /home/michi/actions-runner/actions-runner/cicd-example/cicd-example/build /var/www/html
+      - run: rm -rf /var/www/html/*
+      - run: mv /home/michi/actions-runner/actions-runner/cicd-example/cicd-example/build/* /var/www/html
