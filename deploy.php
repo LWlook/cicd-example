@@ -13,20 +13,6 @@ set('rsync_src', function () {
     return __DIR__ . '/build'; // If your project isn't in the root, you'll need to change this.
 });
 
-// Configuring the rsync exclusions.
-// You'll want to exclude anything that you don't want on the production server.
-add('rsync', [
-    'exclude' => [
-        '.git',
-        '/.env',
-        '/storage/',
-        '/vendor/',
-        '/node_modules/',
-        '.github',
-        'deploy.php',
-    ],
-]);
-
 // Production Server
 host('web-server') // Name of the server
 ->hostname('10.0.0.176') // Hostname or IP address
