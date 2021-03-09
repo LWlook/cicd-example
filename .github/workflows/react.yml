@@ -2,29 +2,21 @@ name: React Application CI/CD
 
 on:
   push:
-    branches: [ deploy ]
-#  pull_request:
-#    branches: [ master ]
+    branches: [ master ]
 
 jobs:
-  build:
-#    runs-on: ubuntu-latest
+  buildAndTest:
     runs-on: self-hosted
-
-    strategy:
-      matrix:
-#        node-version: [10.x, 12.x, 14.x, 15.x]
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Install NPM packages
+        run: npm install
+      - name: Call npm test
+        run: npm test
+      - name: Build for productive
+        run: npm run build
+      - name: Put built assets in Artifacts
+        uses: actions/upload-artifact@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm i
-      - run: npm test
-      - run: npm run build
-      - run: rm -rf /var/www/html/*
-      - run: mv /home/michi/actions-runner/actions-runner/cicd-example/cicd-example/build/* /var/www/html
+          name: assets
+          path: build
