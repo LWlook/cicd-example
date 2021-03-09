@@ -3,20 +3,14 @@
 namespace Deployer;
 
 // Include the Laravel & rsync recipes
-require 'recipe/npm.php';
 require 'recipe/rsync.php';
 
 set('application', 'My React App');
 set('ssh_multiplexing', true); // Speeds up deployments
 
 set('rsync_src', function () {
-    return __DIR__; // If your project isn't in the root, you'll need to change this.
+    return __DIR__ + '/build'; // If your project isn't in the root, you'll need to change this.
 });
-
-set('writable_mode', 'chgrp');
-set('http_group', 'WebAndDeploy');
-set('writable_chmod_mode', '0775');
-set('writable_recursive', false);
 
 // Configuring the rsync exclusions.
 // You'll want to exclude anything that you don't want on the production server.
@@ -49,10 +43,6 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'rsync', // Deploy code & built assets
-    'deploy:shared',
-    'deploy:vendors',
-	'npm:install'
-    'deploy:writable',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',

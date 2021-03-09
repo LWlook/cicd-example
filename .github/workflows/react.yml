@@ -33,8 +33,6 @@ jobs:
           path: build
       - name: Composer install
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-#      - name: Delete socket file
-#        run: rm -f /tmp/ssh-auth.sock
       - name: Setup Deployer
         uses: mleister97/deployer-php-action@master
         with:
