@@ -34,7 +34,7 @@ jobs:
           name: assets
           path: build
       - name: Setup Deployer
-        uses: mleister97/deployer-php-action@master
+        uses: mleister97/deployer-php-action@v1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
