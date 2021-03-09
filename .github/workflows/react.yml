@@ -20,3 +20,27 @@ jobs:
         with:
           name: assets
           path: build
+  deploy-production:
+    name: Deploy Project to PRODUCTION Server
+    runs-on: self-hosted
+    needs: [buildAndTest]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Fetch built assets from Artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: assets
+          path: build
+      - name: Composer install
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+#      - name: Delete socket file
+#        run: rm -f /tmp/ssh-auth.sock
+      - name: Setup Deployer
+        uses: mleister97/deployer-php-action@master
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+      - name: Deploy to PRODUCTION Server
+        env:
+          DOT_ENV: ${{ secrets.DOT_ENV_PRODUCTION }}
+        run: dep deploy production --tag=${{ env.GITHUB_REF }} -vvv
