@@ -3,13 +3,14 @@
 namespace Deployer;
 
 // Include the Laravel & rsync recipes
+require 'recipe/common.php';
 require 'recipe/rsync.php';
 
 set('application', 'My React App');
 set('ssh_multiplexing', true); // Speeds up deployments
 
 set('rsync_src', function () {
-    return __DIR__ + '/build'; // If your project isn't in the root, you'll need to change this.
+    return __DIR__ . '/build'; // If your project isn't in the root, you'll need to change this.
 });
 
 // Configuring the rsync exclusions.
