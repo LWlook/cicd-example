@@ -9,14 +9,14 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
-#      - name: Install NPM packages
-#        run: npm install
-#      - name: Call npm test
-#        run: npm test
-#      - name: Build for productive
-#        run: npm run build
-      - name: Dummy data
-        run: cd /home/lukas/actions-runner-react/_work/cicd-example/cicd-example/ && mkdir build && cd build && touch dummy.txt
+      - name: Install NPM packages
+        run: npm install
+      - name: Call npm test
+        run: npm test
+      - name: Build for productive
+        run: npm run build
+#      - name: Dummy data
+#        run: cd /home/lukas/actions-runner-react/_work/cicd-example/cicd-example/ && mkdir build && cd build && touch dummy.txt
       - name: Put built assets in Artifacts
         uses: actions/upload-artifact@v1
         with:
